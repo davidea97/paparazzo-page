@@ -43,6 +43,14 @@
 
   <!-- for latex -->
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']]
+      }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
 </head>
 <body>
@@ -58,6 +66,38 @@
   }
   th {
     background-color: #f5f5f5;
+  }
+  .mode-block {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .mode-block img.side-media {
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  .mode-block .text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  @media (max-width: 768px) {
+    .mode-block {
+      flex-direction: column;
+    }
+
+    .mode-block img.side-media {
+      width: 100%;
+      max-width: 320px;
+      align-self: center;
+    }
   }
 </style>
 
@@ -105,7 +145,7 @@
             <span class="author-block">
               <a href="https://davidea97.github.io/">Davide Allegro</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="https://shiyao-li.github.io/">Shiyao Li</a><sup>2,3</sup>,</span>
+              <a href="https://shiyao-li.github.io/">Shiyao Li</a><sup>2</sup>,</span>
             <span class="author-block">
               <a href="https://www.dei.unipd.it/~ghidoni/">Stefano Ghidoni</a><sup>1</sup>,
             </span>
@@ -123,11 +163,7 @@
             <!--<span class="author-block"><sup>1</sup>Uni</span>-->
           </div>
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>2</sup>Institut Polytechnique de Paris</span>
-            <!--<span class="author-block"><sup>1</sup>Uni</span>-->
-          </div>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>3</sup>Inria</span>
+            <span class="author-block"><sup>2</sup>LIGM, École Nationale des Ponts et Chaussées, IP Paris, Univ Gustave Eiffel, CNRS </span>
             <!--<span class="author-block"><sup>1</sup>Uni</span>-->
           </div>
 
@@ -230,7 +266,7 @@
         <div class="row is-full-width">
           <h2 class="title is-3"><span>Paparazzo</span></h2>
           <p>
-            <b>Paparazzo</b> is a learning-free framework for active 3D reconstruction of dynamic objects. Paparazzo considers a set of viewpoints  distributed in a foveal configuration around the target object and moving with it over time. To select the most informative viewpoints, we rely on <><b>Fisher Information</b> computed from a <b>3D Gaussian Splatting</b> model, while, to predict the object trajectory and the future positions of these viewpoints, we leverage an <b>Extended Kalman Filter</b>.
+            <b>Paparazzo</b> is a learning-free framework for active 3D reconstruction of dynamic objects. Paparazzo considers a set of viewpoints  distributed in a foveal configuration around the target object and moving with it over time. To select the most informative viewpoints, we rely on <b>Fisher Information</b> computed from a <b>3D Gaussian Splatting</b> model, while, to predict the object trajectory and the future positions of these viewpoints, we leverage an <b>Extended Kalman Filter</b>.
           </p>
 
           <br>
@@ -242,21 +278,70 @@
           <br>
           <br>
           
-          <h3 class="title is-4"><span>Extended Kalman Filter</span></h3>
+          <div class="mode-block">
+            <img
+              class="side-media"
+              src="./static/images/ekf.jpg"
+              alt="EKF illustration"
+            />
 
-          <p>
-            We rely on an Extended Kalman Filter (EKF) defined on SE(3) to estimate the object state and its uncertainty. 
-            We assume a constant-velocity motion model, so the object state is composed of the object pose and its linear and angular velocities. 
-            We quantify our confidence about the object state with two complementary metrics. The first metric U_k = \mathrm{tr}(P_k)$ directly measures the state uncertainty; the second metric is the Normalized Innovation Squared (NIS), which quantifies the consistency of a new measurement of the target object pose with the current state estimate.
-          </p>
-          <br>
-          <br>
-          <h3 class="title is-4"><span>Object Tracking Mode</span></h3>
+            <div class="text-col">
+              <h3 class="title is-4" style="margin: 0;">
+                <span>Extended Kalman Filter</span>
+              </h3>
 
-          <p>
-            The goal of this mode is to prioritize frequent observations of the target object to refine motion estimates: the agent actively keeps the object within the camera’s field of view, while continuously reconstructing it and updating its motion estimate. 
+              <p style="margin: 0;">
+                We rely on an Extended Kalman Filter (EKF) defined on \( SE(3) \) to estimate the object state and its uncertainty.
+                We assume a constant-velocity motion model, so the object state is composed of the object pose and its linear and angular velocities.
+                We quantify our confidence about the object state with two complementary metrics.
+                The <b>first metric</b>, \( U_k = \mathrm{tr}(P_k) \), directly measures the state uncertainty;
+                the <b>second metric</b> is the Normalized Innovation Squared (NIS), which quantifies the consistency of a new measurement of the target object pose with the current state estimate.
+                We use these metrics to determine wether the EKF is providing reliable estimates, and to switch between two different modes of operation for the agent: <b>Object Tracking Mode</b> and <b>Object Mapping Mode</b>.
+              </p>
+            </div>
+          </div>
+
+          <br><br>
+
+          <div class="mode-block">
+            <img
+              class="side-media"
+              src="./static/images/object_tracking.gif"
+              alt="Object Tracking Mode"
+              style="border-radius: 25px;"
+            />
+
+            <div class="text-col">
+              <h3 class="title is-4" style="margin: 0;">
+                <span>Object Tracking Mode</span>
+              </h3>
+
+              <p style="margin: 0;">
+                When the EKF is not reliable, Paparazzo transitions to the Object Tracking Mode to re-localize the object and stabilize the EKF.
+                The goal of this mode is to prioritize frequent observations of the target object in order to refine motion estimates.
+                To this end, the agent actively keeps the object within the camera’s field of view while continuously updating its reconstruction and motion estimate.
+                At each time step, the agent rotates to move the segmentation mask toward the image center, and translates to adjust its distance to the object so that the object's apparent size remains above a certain threshold.
+              </p>
+            </div>
+          </div>
+
+          <!-- <h3 class="title is-4" style="margin-bottom: 10px;">
+            <span>Object Tracking Mode</span>
+          </h3>
+
+          <div style="text-align: center; margin-bottom: 14px;">
+            <img
+              src="./static/images/object_tracking.gif"
+              alt="Object Tracking Mode"
+              style="width: 60%; max-width: 500px; height: auto; border-radius: 12px;"
+            />
+          </div>
+
+          <p style="margin: 0;">
+            The goal of this mode is to prioritize frequent observations of the target object in order to refine motion estimates.
+            To this end, the agent actively keeps the object within the camera’s field of view while continuously updating its reconstruction and motion estimate.
             At each time step, the agent rotates to move the segmentation mask toward the image center, and translates to adjust its distance to the object so that the object's apparent size remains approximately half of the image.
-          </p>
+          </p> -->
 
           <br>
           <br>
