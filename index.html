@@ -297,10 +297,14 @@
                 type="video/mp4">
       </video>
       -->
-      <img src="./static/images/paparazzo_teaser.jpg"
-                 alt="Active mapping of moving objects"/>
+      <!-- <img src="./static/images/paparazzo_teaser.jpg"
+                 alt="Active mapping of moving objects"/> -->
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/paparazzo_dynamic_motion.mov"
+                type="video/mp4">
+      </video> 
       <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Active mapping of moving objects, requires agents to plan observation trajectories while compensating for target motion</span>
+        <span class="dnerf">Active mapping of moving objects, requires agents to plan observation trajectories in order to gather views that reveal new parts of the object while compensating for the object’s future motion during its own navigation.</span>
       </h2>
     </div>
   </div>
@@ -440,10 +444,12 @@
           
           <br>
           <br>
-          <video id="teaser" autoplay muted loop playsinline height="100%">
+          <!-- <video id="teaser" autoplay muted loop playsinline height="100%">
             <source src="./static/videos/paparazzo_dynamic_scene.mov"
                     type="video/mp4">
-          </video>
+          </video> -->
+          <img src="./static/images/paparazzo_teaser.jpg"
+                 alt="Active mapping of moving objects"/>
           <br>
           <br>
         </div>
@@ -474,7 +480,11 @@
           </div>
           <br>
           <br>
-          <p><b>Object Motion Protocol</b></p>
+          <!-- <p><b>Object Motion Protocol</b></p> -->
+          <h3 class="title is-4" style="margin: 0;">
+              <span>Object Motion Protocol</span>
+          </h3>
+          <br>
             <p>
               To comprehensively assess reconstruction performance under diverse object motion dynamics, we consider four motion patterns for the target:
             </p>
@@ -483,11 +493,16 @@
               <li><b>Bouncing Ball:</b> upon collision, the object randomly changes orientation and continues in the new direction.</li>
               <li><b>Forward &amp; Backward:</b> the object moves along a straight line without changing orientation, moving forward until collision and then reversing direction.</li>
               <li><b>Stop &amp; Go:</b> similar to <i>Bouncing Ball</i>, but with intermittent stops—pausing every <i>S</i> steps and resuming after <i>G</i> steps—to simulate non-uniform velocity.</li>
+              <li><b>Curved Bouncing Ball:</b> the object follows curved trajectories; upon collision, it randomly changes orientation and speed, then restarts along a new curved direction.</li>
             </ul>
 
           <br>
           <br>
-          <p><b>Baselines</b></p>
+          <!-- <p><b>Baselines</b></p> -->
+          <h3 class="title is-4" style="margin: 0;">
+              <span>Baselines</span>
+          </h3>
+          <br>
           <p>
             We compare Paparazzo against <b>three baselines</b> designed to isolate the contributions of viewpoint selection, motion prediction, and temporal feasibility:
           </p>
@@ -500,38 +515,44 @@
           <br>
           <br>
           <br>
-
-          <div class="qualitative-wrapper">
-            <div class="qualitative-top-labels">
-              <div class="corner-cell"></div>
-              <div>RW</div>
-              <div>RIS</div>
-              <div>TO</div>
-              <div>Paparazzo</div>
-            </div>
-
-            <div class="qualitative-main">
-              <!-- <div class="qualitative-side-labels">
-                <div>Object 1</div>
-                <div>Object 2</div>
-                <div>Object 3</div>
-                <div>Object 4</div>
-              </div> -->
-              <div class="qualitative-side-labels">
-                <div class="rotated-label">Object 1</div>
-                <div class="rotated-label">Object 2</div>
-                <div class="rotated-label">Object 3</div>
-                <div class="rotated-label">Object 4</div>
+          <div class="text-col">
+              <h3 class="title is-4" style="margin: 0;">
+                <span>Qualitative results</span>
+              </h3>
+              <br>
+              <br>
+            <div class="qualitative-wrapper">
+              <div class="qualitative-top-labels">
+                <div class="corner-cell"></div>
+                <div>RW</div>
+                <div>RIS</div>
+                <div>TO</div>
+                <div>Paparazzo</div>
               </div>
 
-              <img src="./static/images/qualitative.jpg"
-                  class="qualitative-grid-image"
-                  alt="Qualitative results">
-            </div>
+              <div class="qualitative-main">
+                <!-- <div class="qualitative-side-labels">
+                  <div>Object 1</div>
+                  <div>Object 2</div>
+                  <div>Object 3</div>
+                  <div>Object 4</div>
+                </div> -->
+                <div class="qualitative-side-labels">
+                  <div class="rotated-label">Object 1</div>
+                  <div class="rotated-label">Object 2</div>
+                  <div class="rotated-label">Object 3</div>
+                  <div class="rotated-label">Object 4</div>
+                </div>
 
-            <!-- <p class="figure-caption">
-              Columns correspond to RW, RIS, TO, and Paparazzo. Rows correspond to Object 1, Object 2, Object 3, and Object 4.
-            </p> -->
+                <img src="./static/images/qualitative.jpg"
+                    class="qualitative-grid-image"
+                    alt="Qualitative results">
+              </div>
+
+              <!-- <p class="figure-caption">
+                Columns correspond to RW, RIS, TO, and Paparazzo. Rows correspond to Object 1, Object 2, Object 3, and Object 4.
+              </p> -->
+            </div>
           </div>
         </div>
       </div>
