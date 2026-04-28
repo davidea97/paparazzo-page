@@ -40,6 +40,7 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
   <!-- for latex -->
   <script>
@@ -236,7 +237,7 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <!-- PDF Link. -->
-              <span class="link-block">
+              <!-- <span class="link-block">
                 <button type="button"
                         class="button is-normal is-rounded is-dark"
                         disabled>
@@ -245,18 +246,17 @@
                   </span>
                   <span>Paper</span>
                 </button>
-              </span>
+              </span> -->
 
               <!-- ArXiv Link. -->
               <span class="link-block">
-                <button type="button"
-                        class="button is-normal is-rounded is-dark"
-                        disabled>
+                <a href="https://arxiv.org/abs/2604.19556"
+                   class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="ai ai-arxiv"></i>
                   </span>
                   <span>arXiv</span>
-                </button>
+                </a>
               </span>
 
               <!-- Video Link. -->
@@ -278,7 +278,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (soon available)</span>
                 </button>
               </span>
             </div>
@@ -299,12 +299,9 @@
                 type="video/mp4">
       </video>
       -->
-      <!-- <img src="./static/images/paparazzo_teaser.jpg"
-                 alt="Active mapping of moving objects"/> -->
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/paparazzo_dynamic_motion.mp4"
-                type="video/mp4">
-      </video> 
+      <img src="./static/images/teaser.png"
+                 alt="Active mapping of moving objects"/>
+                
       <h2 class="subtitle has-text-centered">
         <span class="dnerf">Active mapping of moving objects, requires agents to plan observation trajectories in order to gather views that reveal new parts of the object while compensating for the object’s future motion during its own navigation.</span>
       </h2>
@@ -326,9 +323,15 @@
             Through extensive experiments, we show that Paparazzo significantly improves 3D reconstruction completeness and accuracy compared to several strong baselines, marking an important step toward dynamic scene understanding.
           </p>
         </div>
+        <br>
+        <video id="teaser" autoplay muted loop playsinline height="100%">
+              <source src="./static/videos/paparazzo_dynamic_motion.mp4"
+                      type="video/mp4">
+        </video> 
       </div>
     </div>
   </div>
+  
 </section>
 
 
@@ -475,10 +478,38 @@
           <br>
 
           <div class="benchmark-objects-row">
-            <img src="./static/images/object1.jpg" alt="Object 1">
-            <img src="./static/images/object2.jpg" alt="Object 2">
-            <img src="./static/images/object3.jpg" alt="Object 3">
-            <img src="./static/images/object4.jpg" alt="Object 4">
+            <model-viewer
+              src="./static/pcl/object1.glb"
+              poster="./static/images/object1.jpg"
+              alt="Object 1"
+              camera-controls
+              auto-rotate
+              loading="lazy">
+            </model-viewer>
+            <model-viewer
+              src="./static/pcl/object2.glb"
+              poster="./static/images/object2.jpg"
+              alt="Object 2"
+              camera-controls
+              auto-rotate
+              loading="lazy">
+            </model-viewer>
+            <model-viewer
+              src="./static/pcl/object3.glb"
+              poster="./static/images/object3.jpg"
+              alt="Object 3"
+              camera-controls
+              auto-rotate
+              loading="lazy">
+            </model-viewer>
+            <model-viewer
+              src="./static/pcl/object4.glb"
+              poster="./static/images/object4.jpg"
+              alt="Object 4"
+              camera-controls
+              auto-rotate
+              loading="lazy">
+            </model-viewer>
           </div>
           <br>
           <br>
@@ -566,7 +597,12 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>Available soon.</code></pre>
+    <pre><code>@article{allegro2026paparazzo,
+  title={Paparazzo: Active Mapping of Moving 3D Objects},
+  author={Allegro, Davide and Li, Shiyao and Ghidoni, Stefano and Lepetit, Vincent},
+  journal={arXiv preprint arXiv:2604.19556},
+  year={2026}
+}</code></pre>
   </div>
 </section>
 
