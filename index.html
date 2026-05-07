@@ -1132,6 +1132,37 @@
 </section>
 
 
+<section class="section building-site-section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3"><span>Application: Building Site Digital Twin</span></h2>
+        <div class="content has-text-justified">
+          <p>
+            Beyond controlled benchmark scenes, Paparazzo can support dynamic digital twins of building sites, where robots need to continuously observe and reconstruct moving equipment, materials, and partially occluded structures. By coupling motion prediction with active viewpoint selection, the system can focus sensing effort where the digital twin is most incomplete while keeping the full reconstruction pipeline responsive.
+          </p>
+        </div>
+
+        <video
+          class="building-site-video"
+          controls
+          muted
+          playsinline
+          preload="none"
+          data-src="./static/videos/digital_twin_video.mp4"
+          aria-label="Digital twin application on a building site">
+        </video>
+        <noscript>
+          <video class="building-site-video" controls muted playsinline preload="metadata">
+            <source src="./static/videos/digital_twin_video.mp4" type="video/mp4">
+          </video>
+        </noscript>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
@@ -1174,6 +1205,44 @@
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    const video = document.querySelector('.building-site-video[data-src]');
+
+    if (!video) {
+      return;
+    }
+
+    function loadBuildingSiteVideo() {
+      if (video.dataset.loaded === 'true') {
+        return;
+      }
+
+      const source = document.createElement('source');
+      source.src = video.dataset.src;
+      source.type = 'video/mp4';
+      video.appendChild(source);
+      video.load();
+      video.dataset.loaded = 'true';
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadBuildingSiteVideo();
+          observer.disconnect();
+        }
+      }, {
+        rootMargin: '500px 0px'
+      });
+
+      observer.observe(video);
+    } else {
+      loadBuildingSiteVideo();
+    }
+  }());
+</script>
 
 </body>  
 </html>

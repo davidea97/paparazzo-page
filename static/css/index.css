@@ -467,6 +467,30 @@ li {
 .figure-caption {
   color: #606a78;
 }
+
+.building-site-section {
+  background: #fbfcfe;
+}
+
+.building-site-section .column {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.building-site-video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin-top: 1.6rem;
+  border: 1px solid #dfe5ee;
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(36, 43, 54, 0.06), rgba(194, 24, 91, 0.06)),
+    #f7f8fb;
+  box-shadow: 0 14px 34px rgba(35, 45, 64, 0.1);
+}
+
 .paparazzo-gradient {
   display: inline-block;
   font-weight: 800;
